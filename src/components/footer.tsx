@@ -3,15 +3,17 @@ import { Link } from 'react-router-dom';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="Footer">
-      <div>
-        <Link to="/about">About</Link>
-        <Link to="/privacy">Privacy Policy</Link>
-        <Link to="/terms">Terms of Service</Link>
+    <footer className="flex h-72 w-full flex-col">
+      <div className="flex flex-1 flex-row justify-evenly items-end">
+        <Link to="/about" className="text-white">About</Link>
+        <Link to="/privacy" className="text-white">Privacy Policy</Link>
+        <Link to="/terms" className="text-white">Terms of Service</Link>
       </div>
-      <div>
-        &copy; {new Date().getFullYear()} Conmecto. All rights reserved.
-      </div>
+      <div className="flex flex-1 flex-col justify-center items-center">
+        <h3 className="text-white">
+          &copy; {new Date().getFullYear()} Conmecto. All rights reserved.
+        </h3>
+      </div>      
     </footer>
   );
 }

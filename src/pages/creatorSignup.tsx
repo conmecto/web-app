@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import countryLookup from '../services/countryLookup';
-import signupBrand from '../services/signupBrand';
+import signupCreator from '../services/signupCreator';
 import { emailRegex, passwordRegex, locationLocalStorageKey, locationLocalStorageExpireTimeMin } from '../utils/constants';
 import { getItemLocalStorage, setItemLocalStorage } from '../utils/local';
 
@@ -12,19 +12,19 @@ type locationInfo = {
 } 
 
 type SignupFormData = {
-  brandName: string,
-  repName: string,
+  firstName: string,
+  lastName: string,
   email: string,
   password: string,
   confirmPassword: string,
   locationInfo?: locationInfo
 }
 
-const Signup = () => {
+const CreatorSignup = () => {
   const locationInfo = useRef<locationInfo>();
   const [signupForm, setSignupForm] = useState<SignupFormData>({
-    brandName: '',
-    repName: '',
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
     confirmPassword: ''
@@ -45,10 +45,8 @@ const Signup = () => {
           country: result?.country,
           postal: result?.postal
         }
-        if (items) {
-          setItemLocalStorage(locationLocalStorageKey, items, locationLocalStorageExpireTimeMin);
-          locationInfo.current = items;
-        }
+        setItemLocalStorage(locationLocalStorageKey, items, locationLocalStorageExpireTimeMin);
+        locationInfo.current = items;
       } catch (err: any) {
       }
     }
@@ -73,10 +71,10 @@ const Signup = () => {
       setError('Please enter a valid email address');
     } else if (event.target.name === 'password' && !passwordRegex.test(event.target.value)) {
       setError('Password must be at least 8 characters long, contain one uppercase letter, one lowercase letter, one number, and one special character');
-    } else if (event.target.name === 'brandName' && event.target.value.length < 3) {
-      setError('Brand name requires atleast 3 characters');
-    } else if (event.target.name === 'repName' && event.target.value.length < 3) {
-      setError('Please enter your full name');
+    } else if (event.target.name === 'firstName' && event.target.value.length < 2) {
+      setError('First name requires atleast 2 characters');
+    } else if (event.target.name === 'lastName' && event.target.value.length < 2) {
+      setError('Last name requires atleast 2 characters');
     } else if (event.target.name === 'confirmPassword' && event.target.value !== signupForm.password) {
       setError('Passwords do not match');
     } else {
@@ -99,7 +97,7 @@ const Signup = () => {
       if (locationInfo.current) {
         signupForm.locationInfo = locationInfo.current;
       }
-      const result = await signupBrand(signupForm, signal);
+      const result = await signupCreator(signupForm, signal);
       setShowSuccess(true);
     } catch (err: any) {
       if (err.message === '401') {
@@ -144,7 +142,7 @@ const Signup = () => {
                       </svg>
                   </span>
 
-                  <input type="text" name="repName" id="repName" onChange={handleInputChange} required={true} className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Full Name" />
+                  <input type="text" name="firstName" id="firstName" onChange={handleInputChange} required={true} className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="First Name" />
               </div>
 
               <div className="relative flex items-center mt-8">
@@ -154,7 +152,7 @@ const Signup = () => {
                       </svg>
                   </span>
 
-                  <input type="text" name="brandName" id="brandName" onChange={handleInputChange} required={true} className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Brand Name" />
+                  <input type="text" name="lastName" id="lastName" onChange={handleInputChange} required={true} className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Last Name" />
               </div>
 
               <div className="relative flex items-center mt-6">
@@ -207,4 +205,4 @@ const Signup = () => {
   );
 }
 
-export default Signup;
+export default CreatorSignup;

@@ -1,5 +1,5 @@
 import React from 'react';
-import Carousel from './carousel';
+import VideoCarousel from './videoCarousel';
 import { sampleVideo1, sampleVideo2, sampleVideo3 } from '../assets/videos';
 
 const LandingBase: React.FC = () => {
@@ -20,11 +20,11 @@ const LandingBase: React.FC = () => {
         </p>
       </div>
       <div className="flex flex-3 flex-row">
-        <div className="flex flex-2">
-        
-        </div>
         <div className="flex flex-3">
-          <Carousel videos={videos} />
+          <VideoCarousel videos={videos} />
+        </div>
+        <div className="flex flex-2">
+          
         </div>
       </div>
     </div>
