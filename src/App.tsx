@@ -15,7 +15,6 @@ const App: React.FC = () => {
           <Route element={<ProtectedRoute />}>
             <Route path="/dashboard" element={<Dashboard />} />
           </Route>
-          <Route path="/creator" element={<CreatorHome />} />
           <Route path="/creator/login" element={<Login creator={true} />} />
           <Route path="/creator/join" element={<CreatorSignup />} />
           <Route element={<ProtectedRoute type="creator"/>}>

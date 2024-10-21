@@ -1,20 +1,18 @@
 import React from 'react';
-import Header from '../components/header';
-import LandingBase from '../components/landingBase';
-import LandingBody from '../components/landingBody';
-import Faqs from '../components/faqs';
-import Footer from '../components/footer';
+import { useAuth } from '../utils/authContext';
+import BaseHome from './baseHome';
+import CreatorHome from './creatorHome';
+import BrandHome from './brandHome';
 
 const Home: React.FC = () => {
-  return (
-    <div className="flex flex-col bg-black">
-      <Header />
-      <LandingBase />
-      <LandingBody />
-      <Faqs />
-      <Footer />
-    </div>
-  );
+  const { isAuthenticated, user } = useAuth();
+  // if (!isAuthenticated) {
+  //   return (<BaseHome />);
+  // }
+  // if (user.type === "creator") {
+  //   return (<CreatorHome />);
+  // }
+  return (<BrandHome />);
 }
 
 export default Home;

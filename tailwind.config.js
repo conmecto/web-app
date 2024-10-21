@@ -10,9 +10,14 @@ module.exports = {
         '3': '3 3 0%'
       },
       height: {
-        '50': '50vh',
-        '60': '60vh',
+        '15vh': '15vh',
+        '30vh': '30vh',
+        '50vh': '50vh',
+        '60vh': '60vh',
         '150': '150vh'
+      },
+      width: {
+        '30vw': '30vw',
       },
       colors: {
         'logo-color': '#7f7fd5',

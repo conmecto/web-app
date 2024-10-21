@@ -51,11 +51,7 @@ const Login = ({ creator }: props) => {
         type: result.type
       });
       setAccessToken(result.access_token);
-      if (creator) {
-        navigate('/creator/dashboard');
-      } else {
-        navigate('/dashboard');
-      }
+      navigate('/');
     } catch (err: any) {
       if (err.message === '400') {
         setError('Incorrect Credentials!');
