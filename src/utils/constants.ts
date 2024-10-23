@@ -4,9 +4,15 @@ const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$
 const locationLocalStorageKey = '_location_info_';
 const locationLocalStorageExpireTimeMin = 1440;
 
+const currencySymbols: any = {
+  'indian_rupee': '₹',
+  'united_states_dollar': '$'
+}
+
 export {
   emailRegex,
   passwordRegex,
   locationLocalStorageKey,
-  locationLocalStorageExpireTimeMin
+  locationLocalStorageExpireTimeMin,
+  currencySymbols
 }

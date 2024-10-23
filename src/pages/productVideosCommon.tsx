@@ -1,53 +1,172 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Loader from '../components/loader';
+import ProductCard from '../components/productCard';
 import imageThumbnail from '../assets/images/thumbnail.png';
+import temp3 from '../assets/images/temp3.png';
+import verticalVideo from '../assets/videos/vertical.mp4';
 import testVideo from '../assets/videos/sampleVideo1.mp4';
 import { formatText } from '../utils/helpers';
 
-const data = [
+const horizontalData = [
   {
     source: testVideo,
     thumbnail: imageThumbnail,
     isVertical: false,
     verticalAvailable: false,
     brandName: 'Nike',
+    category: 'shoes',
     productName: 'Sabrina 2 EP Basketball Shoes',
-    description: "Sabrina Ionescu's success is no secret. Her game is based on living in the gym, getting in rep after rep to perfect her craft. The Sabrina 2 sets you up to do more, so you're ready to go when it's game time. Our newest Cushlon foam helps keep you fresh, Air Zoom cushioning adds the pop and sticky traction helps you create that next-level distance. Sabrina's handed you the tools. Time to go to work. With its extra-durable rubber outsole, this version gives you traction for outdoor courts",
+    creatorName: 'Monkey D. Luffy',
+    adSummary: 'Crazy runner creates 100miles world record',
     currency: 'indian_rupee',
-    price: 2500
+    price: 5000
+  },
+  {
+    source: testVideo,
+    thumbnail: imageThumbnail,
+    isVertical: false,
+    verticalAvailable: false,
+    brandName: 'Nike',
+    category: 'shoes',
+    productName: 'Sabrina 2 EP Basketball Shoes',
+    creatorName: 'Monkey D. Luffy',
+    adSummary: 'Crazy runner creates 100miles world record',
+    currency: 'indian_rupee',
+    price: 5000
+  },
+  {
+    source: testVideo,
+    thumbnail: imageThumbnail,
+    isVertical: false,
+    verticalAvailable: false,
+    brandName: 'Nike',
+    category: 'shoes',
+    productName: 'Sabrina 2 EP Basketball Shoes',
+    creatorName: 'Monkey D. Luffy',
+    adSummary: 'Crazy runner creates 100miles world record',
+    currency: 'indian_rupee',
+    price: 5000
+  },
+  {
+    source: testVideo,
+    thumbnail: imageThumbnail,
+    isVertical: false,
+    verticalAvailable: false,
+    brandName: 'Nike',
+    category: 'shoes',
+    productName: 'Sabrina 2 EP Basketball Shoes',
+    creatorName: 'Monkey D. Luffy',
+    adSummary: 'Crazy runner creates 100miles world record',
+    currency: 'indian_rupee',
+    price: 5000
+  },
+  {
+    source: testVideo,
+    thumbnail: imageThumbnail,
+    isVertical: false,
+    verticalAvailable: false,
+    brandName: 'Nike',
+    category: 'shoes',
+    productName: 'Sabrina 2 EP Basketball Shoes',
+    creatorName: 'Monkey D. Luffy',
+    adSummary: 'Crazy runner creates 100miles world record',
+    currency: 'indian_rupee',
+    price: 5000
   }
 ]
 
-const ProductCard = ({ productName, description }: any) => (
-  <div className="bg-white rounded-lg shadow-md p-4">
-    <h2 className="text-xl font-bold mb-2">{productName}</h2>
-    <p>{description}</p>
-  </div>
-);
+const verticalData = [
+  {
+    source: verticalVideo,
+    thumbnail: temp3,
+    isVertical: false,
+    verticalAvailable: false,
+    brandName: 'Nike',
+    category: 'shoes',
+    productName: 'Sabrina 2 EP Basketball Shoes',
+    creatorName: 'Monkey D. Luffy',
+    adSummary: 'Crazy runner creates 100miles world record',
+    currency: 'indian_rupee',
+    price: 5000
+  },
+  {
+    source: verticalVideo,
+    thumbnail: temp3,
+    isVertical: false,
+    verticalAvailable: false,
+    brandName: 'Nike',
+    category: 'shoes',
+    productName: 'Sabrina 2 EP Basketball Shoes',
+    creatorName: 'Monkey D. Luffy',
+    adSummary: 'Crazy runner creates 100miles world record',
+    currency: 'indian_rupee',
+    price: 5000
+  },
+  {
+    source: verticalVideo,
+    thumbnail: temp3,
+    isVertical: false,
+    verticalAvailable: false,
+    brandName: 'Nike',
+    category: 'shoes',
+    productName: 'Sabrina 2 EP Basketball Shoes',
+    creatorName: 'Monkey D. Luffy',
+    adSummary: 'Crazy runner creates 100miles world record',
+    currency: 'indian_rupee',
+    price: 5000
+  },
+  {
+    source: verticalVideo,
+    thumbnail: temp3,
+    isVertical: false,
+    verticalAvailable: false,
+    brandName: 'Nike',
+    category: 'shoes',
+    productName: 'Sabrina 2 EP Basketball Shoes',
+    creatorName: 'Monkey D. Luffy',
+    adSummary: 'Crazy runner creates 100miles world record',
+    currency: 'indian_rupee',
+    price: 5000
+  },
+  {
+    source: verticalVideo,
+    thumbnail: temp3,
+    isVertical: false,
+    verticalAvailable: false,
+    brandName: 'Nike',
+    category: 'shoes',
+    productName: 'Sabrina 2 EP Basketball Shoes',
+    creatorName: 'Monkey D. Luffy',
+    adSummary: 'Crazy runner creates 100miles world record',
+    currency: 'indian_rupee',
+    price: 5000
+  },
+]
 
-const ProductsGrid = ({ products }: any) => {
+const ProductsGrid = ({ products, vertical, handleProductModal }: any) => {
   return (
-    <div className="h-50vh grid grid-cols-2 gap-4">
-      {products.map((product: any, index: number) => (
-        <div key={index}>
-          <ProductCard title={product.productName} content={product.description} />
-        </div>
-      ))}
+    <div className="flex flex-wrap -mx-2 w-4/5">
+      {
+        products.map((product: any, index: number) => (
+          <ProductCard key={index} product={product} vertical={vertical} handleProductModal={handleProductModal} />
+        ))
+      }
     </div>
   );
 }
 
-const ProductsVideosCommon = ({ brandName }: any) => {
+const ProductsVideosCommon = ({ brandName, handleProductModal }: any) => {
   const [vertical, setVertical] = useState(false);
   const [category, setCategory] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleSelectDevice = (isVertical: boolean) => {
-    console.log('isVertical', isVertical)
-    setVertical(isVertical);
+    setLoading(true);
+    setTimeout(() => {
+      setVertical(isVertical);
+      setLoading(false);
+    }, 1000);
   }
-
-  console.log('vertical', vertical)
 
   return (
     <div className="flex flex-col w-full items-center">
@@ -90,9 +209,7 @@ const ProductsVideosCommon = ({ brandName }: any) => {
       {
         !loading &&
         (
-          <div className="flex w-4/5">
-            <ProductsGrid products={data} />
-          </div>
+          <ProductsGrid products={vertical ? verticalData : horizontalData} vertical={vertical} handleProductModal={handleProductModal} />
         )
       }
     </div>
