@@ -19,7 +19,7 @@ const horizontalData = [
     creatorName: 'Monkey D. Luffy',
     adSummary: 'Crazy runner creates 100miles world record',
     currency: 'indian_rupee',
-    price: 5000
+    amount: 5000
   },
   {
     source: testVideo,
@@ -32,7 +32,7 @@ const horizontalData = [
     creatorName: 'Monkey D. Luffy',
     adSummary: 'Crazy runner creates 100miles world record',
     currency: 'indian_rupee',
-    price: 5000
+    amount: 5000
   },
   {
     source: testVideo,
@@ -45,7 +45,7 @@ const horizontalData = [
     creatorName: 'Monkey D. Luffy',
     adSummary: 'Crazy runner creates 100miles world record',
     currency: 'indian_rupee',
-    price: 5000
+    amount: 5000
   },
   {
     source: testVideo,
@@ -58,7 +58,7 @@ const horizontalData = [
     creatorName: 'Monkey D. Luffy',
     adSummary: 'Crazy runner creates 100miles world record',
     currency: 'indian_rupee',
-    price: 5000
+    amount: 5000
   },
   {
     source: testVideo,
@@ -71,7 +71,7 @@ const horizontalData = [
     creatorName: 'Monkey D. Luffy',
     adSummary: 'Crazy runner creates 100miles world record',
     currency: 'indian_rupee',
-    price: 5000
+    amount: 5000
   }
 ]
 
@@ -87,7 +87,7 @@ const verticalData = [
     creatorName: 'Monkey D. Luffy',
     adSummary: 'Crazy runner creates 100miles world record',
     currency: 'indian_rupee',
-    price: 5000
+    amount: 5000
   },
   {
     source: verticalVideo,
@@ -100,7 +100,7 @@ const verticalData = [
     creatorName: 'Monkey D. Luffy',
     adSummary: 'Crazy runner creates 100miles world record',
     currency: 'indian_rupee',
-    price: 5000
+    amount: 5000
   },
   {
     source: verticalVideo,
@@ -113,7 +113,7 @@ const verticalData = [
     creatorName: 'Monkey D. Luffy',
     adSummary: 'Crazy runner creates 100miles world record',
     currency: 'indian_rupee',
-    price: 5000
+    amount: 5000
   },
   {
     source: verticalVideo,
@@ -126,7 +126,7 @@ const verticalData = [
     creatorName: 'Monkey D. Luffy',
     adSummary: 'Crazy runner creates 100miles world record',
     currency: 'indian_rupee',
-    price: 5000
+    amount: 5000
   },
   {
     source: verticalVideo,
@@ -139,7 +139,7 @@ const verticalData = [
     creatorName: 'Monkey D. Luffy',
     adSummary: 'Crazy runner creates 100miles world record',
     currency: 'indian_rupee',
-    price: 5000
+    amount: 5000
   },
 ]
 
