@@ -1,22 +1,38 @@
 import { useState, useRef } from "react";
+import { formatText } from "../utils/helpers";
 
 const ProductCard = ({ index, product, vertical, handleProductModal }: any) => {
   const [isHovered, setIsHovered] = useState(false);
   const videoRef = useRef<any>(null);
 
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-    videoRef.current.play();
+  const handleMouseEnter = async () => {
+    const video = videoRef.current;
+    if (video) {
+      try {
+        setIsHovered(true);
+        await video.play();
+        console.log("Video playing...");
+      } catch (error) {
+        console.log("Video play was aborted:", error);
+      }
+    }
   };
 
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    videoRef.current.pause();
-    videoRef.current.currentTime = 0;
+  const handleMouseLeave = async () => {
+    const video = videoRef.current;
+    if (video) {
+      try {
+        setIsHovered(false);
+        await video.pause();
+        video.currentTime = 0;
+        console.log("Video paused and reset...");
+      } catch (error) {
+        console.log("Video pause was aborted:", error);
+      }
+    }
   };
-
+console.log('product.thumbnailKey', product.thumbnailKey)
   const handleClick = () => {
-    console.log('isHovered', isHovered)
     handleProductModal(product);
   };
 
@@ -27,9 +43,10 @@ const ProductCard = ({ index, product, vertical, handleProductModal }: any) => {
         onClick={handleClick}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-      >
+      > 
+
         <img
-          src={product.thumbnail}
+          src={product.thumbnailKey}
           alt="Thumbnail"
           className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-300 ${
             isHovered ? "opacity-0" : "opacity-100"
@@ -38,8 +55,10 @@ const ProductCard = ({ index, product, vertical, handleProductModal }: any) => {
 
         <video
           ref={videoRef}
-          src={product.source}
-          className="absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-300"
+          src={product.compressedKey}
+          className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-300 ${
+            isHovered ? "opacity-100" : "opacity-0"
+          }`}
           muted
           loop
           playsInline
@@ -52,13 +71,13 @@ const ProductCard = ({ index, product, vertical, handleProductModal }: any) => {
         > 
           <div className="flex flex-2 flex-col justify-evenly pl-2">
             <p className="text-white font-bold text-xl">
-              {product.brandName}
+              {formatText(product.brandName)}
             </p>
             <p className="text-white font-medium text-base">
-              {product.productName}
+              {formatText(product.productName)}
             </p>
             <p className="text-white font-medium text-base">
-              By {product.creatorName}
+              By {formatText(product.firstname) + " " + formatText(product.lastname)}
             </p>
           </div>
           <div className="flex flex-1 justify-end items-end pr-1">

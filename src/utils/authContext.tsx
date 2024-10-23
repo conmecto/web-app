@@ -27,10 +27,10 @@ export const AuthProvider = ({ children }: any) => {
       });
       if (response?.ok) {
         const authResponse = await response.json();
-        if (authResponse?.access_token && authResponse?.user_id && authResponse?.user_type) {
+        if (authResponse?.accessToken && authResponse?.userId && authResponse?.type) {
           return {
-            userId: authResponse.user_id,
-            type: authResponse.user_type,
+            userId: authResponse.userId,
+            type: authResponse.type,
             accessToken: authResponse.access_token
           }
         }

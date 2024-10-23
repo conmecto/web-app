@@ -1,165 +1,13 @@
 import { useState } from 'react';
 import Loader from '../components/loader';
-import ProductCard from '../components/productCard';
-import imageThumbnail from '../assets/images/thumbnail.png';
-import temp3 from '../assets/images/temp3.png';
-import verticalVideo from '../assets/videos/vertical.mp4';
-import testVideo from '../assets/videos/sampleVideo1.mp4';
 import { formatText } from '../utils/helpers';
-
-const horizontalData = [
-  {
-    source: testVideo,
-    thumbnail: imageThumbnail,
-    isVertical: false,
-    verticalAvailable: false,
-    brandName: 'Nike',
-    category: 'shoes',
-    productName: 'Sabrina 2 EP Basketball Shoes',
-    creatorName: 'Monkey D. Luffy',
-    adSummary: 'Crazy runner creates 100miles world record',
-    currency: 'indian_rupee',
-    amount: 5000
-  },
-  {
-    source: testVideo,
-    thumbnail: imageThumbnail,
-    isVertical: false,
-    verticalAvailable: false,
-    brandName: 'Nike',
-    category: 'shoes',
-    productName: 'Sabrina 2 EP Basketball Shoes',
-    creatorName: 'Monkey D. Luffy',
-    adSummary: 'Crazy runner creates 100miles world record',
-    currency: 'indian_rupee',
-    amount: 5000
-  },
-  {
-    source: testVideo,
-    thumbnail: imageThumbnail,
-    isVertical: false,
-    verticalAvailable: false,
-    brandName: 'Nike',
-    category: 'shoes',
-    productName: 'Sabrina 2 EP Basketball Shoes',
-    creatorName: 'Monkey D. Luffy',
-    adSummary: 'Crazy runner creates 100miles world record',
-    currency: 'indian_rupee',
-    amount: 5000
-  },
-  {
-    source: testVideo,
-    thumbnail: imageThumbnail,
-    isVertical: false,
-    verticalAvailable: false,
-    brandName: 'Nike',
-    category: 'shoes',
-    productName: 'Sabrina 2 EP Basketball Shoes',
-    creatorName: 'Monkey D. Luffy',
-    adSummary: 'Crazy runner creates 100miles world record',
-    currency: 'indian_rupee',
-    amount: 5000
-  },
-  {
-    source: testVideo,
-    thumbnail: imageThumbnail,
-    isVertical: false,
-    verticalAvailable: false,
-    brandName: 'Nike',
-    category: 'shoes',
-    productName: 'Sabrina 2 EP Basketball Shoes',
-    creatorName: 'Monkey D. Luffy',
-    adSummary: 'Crazy runner creates 100miles world record',
-    currency: 'indian_rupee',
-    amount: 5000
-  }
-]
-
-const verticalData = [
-  {
-    source: verticalVideo,
-    thumbnail: temp3,
-    isVertical: false,
-    verticalAvailable: false,
-    brandName: 'Nike',
-    category: 'shoes',
-    productName: 'Sabrina 2 EP Basketball Shoes',
-    creatorName: 'Monkey D. Luffy',
-    adSummary: 'Crazy runner creates 100miles world record',
-    currency: 'indian_rupee',
-    amount: 5000
-  },
-  {
-    source: verticalVideo,
-    thumbnail: temp3,
-    isVertical: false,
-    verticalAvailable: false,
-    brandName: 'Nike',
-    category: 'shoes',
-    productName: 'Sabrina 2 EP Basketball Shoes',
-    creatorName: 'Monkey D. Luffy',
-    adSummary: 'Crazy runner creates 100miles world record',
-    currency: 'indian_rupee',
-    amount: 5000
-  },
-  {
-    source: verticalVideo,
-    thumbnail: temp3,
-    isVertical: false,
-    verticalAvailable: false,
-    brandName: 'Nike',
-    category: 'shoes',
-    productName: 'Sabrina 2 EP Basketball Shoes',
-    creatorName: 'Monkey D. Luffy',
-    adSummary: 'Crazy runner creates 100miles world record',
-    currency: 'indian_rupee',
-    amount: 5000
-  },
-  {
-    source: verticalVideo,
-    thumbnail: temp3,
-    isVertical: false,
-    verticalAvailable: false,
-    brandName: 'Nike',
-    category: 'shoes',
-    productName: 'Sabrina 2 EP Basketball Shoes',
-    creatorName: 'Monkey D. Luffy',
-    adSummary: 'Crazy runner creates 100miles world record',
-    currency: 'indian_rupee',
-    amount: 5000
-  },
-  {
-    source: verticalVideo,
-    thumbnail: temp3,
-    isVertical: false,
-    verticalAvailable: false,
-    brandName: 'Nike',
-    category: 'shoes',
-    productName: 'Sabrina 2 EP Basketball Shoes',
-    creatorName: 'Monkey D. Luffy',
-    adSummary: 'Crazy runner creates 100miles world record',
-    currency: 'indian_rupee',
-    amount: 5000
-  },
-]
-
-const ProductsGrid = ({ products, vertical, handleProductModal }: any) => {
-  return (
-    <div className="flex flex-wrap -mx-2 w-4/5">
-      {
-        products.map((product: any, index: number) => (
-          <ProductCard key={index} product={product} vertical={vertical} handleProductModal={handleProductModal} />
-        ))
-      }
-    </div>
-  );
-}
+import { ProductsGrid as HorizontalProductsGrid, ProductsGrid as VerticalProductsGrid } from '../components/horizontalProductGrid';
 
 const ProductsVideosCommon = ({ brandName, handleProductModal }: any) => {
   const [vertical, setVertical] = useState(false);
-  const [category, setCategory] = useState('');
+  // const [category, setCategory] = useState('');
   const [loading, setLoading] = useState(false);
-
+  
   const handleSelectDevice = (isVertical: boolean) => {
     setLoading(true);
     setTimeout(() => {
@@ -207,9 +55,15 @@ const ProductsVideosCommon = ({ brandName, handleProductModal }: any) => {
         )
       }
       {
-        !loading &&
+        !loading && vertical &&
         (
-          <ProductsGrid products={vertical ? verticalData : horizontalData} vertical={vertical} handleProductModal={handleProductModal} />
+          <VerticalProductsGrid vertical={vertical} handleProductModal={handleProductModal} />
+        )
+      }
+      {
+        !loading && !vertical &&
+        (
+          <HorizontalProductsGrid vertical={vertical} handleProductModal={handleProductModal} />
         )
       }
     </div>

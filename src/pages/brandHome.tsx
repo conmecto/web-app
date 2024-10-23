@@ -36,7 +36,6 @@ const BrandHome: React.FC = () => {
           <ProductModal product={modalProduct} handleProductModal={handleProductModal} />
         )
       }
-      {/* <Footer /> */}
     </div>
   );
 }

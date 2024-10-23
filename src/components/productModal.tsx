@@ -69,20 +69,20 @@ const ProductModal = ({ product, handleProductModal }: any) => {
             autoPlay
             className="h-full w-full rounded-md"
           >
-            <source src={product.source} type="video/mp4" />
+            <source src={product.compressedKey} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>
         <div className="flex h-1/6 flex-row">
           <div className="flex flex-2 flex-col justify-evenly pl-4">
             <p className="text-xl font-bold">
-              By {product.creatorName}
+              By {formatText(product.firstname) + " " + formatText(product.lastname)}
             </p>
             <p className="inline-flex text-m">
-              # {product.adSummary}
+              # {product.summary}
             </p>
             <p className="text-m">
-              Dimensions: {videoDimensions.width} ✗ {videoDimensions.height} 
+              Dimensions: {product.width} ✗ {product.height} 
             </p>
           </div>
           <div className="flex flex-1 items-center justify-end pr-4">

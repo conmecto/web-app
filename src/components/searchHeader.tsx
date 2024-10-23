@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const SearchHeader = ({ onSubmitSearch }: any) => {
   const [inputValue, setInputValue] = useState('');

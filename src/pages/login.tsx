@@ -47,7 +47,7 @@ const Login = ({ creator }: props) => {
     try {
       const result = await loginUser(formData, creator, signal);
       setUser({
-        id: result.user_id,
+        id: result.userId,
         type: result.type
       });
       setAccessToken(result.access_token);
