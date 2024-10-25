@@ -14,7 +14,7 @@ const BrandHome: React.FC = () => {
   const resetChildKey = `${orientation}-${brandName}-${category}-${productName}`;
 
   const handleClearSearch = () => {
-    let url = '/ai-ads';
+    let url = '/ai-videos';
     if (orientation) {
       url += (`/${orientation}`);
     } else {
@@ -25,7 +25,7 @@ const BrandHome: React.FC = () => {
   }
 
   const handleSelectDevice = (device: string) => {
-    let url = '/ai-ads/' + device;
+    let url = '/ai-videos/' + device;
     if (brandName) {
       url += (`/${brandName}`)
     }

@@ -22,14 +22,14 @@ const SelectProductDropDown = ({ showDropdown, brandProductsList, handleDropdown
     if (!newCategory) {
       newCategory = brandProductsList[index]?.category?.replace(/ /g, '-');
     }
-    let url = `/ai-ads/${orientation}/${brandName}/${newCategory}`;
+    let url = `/ai-videos/${orientation}/${brandName}/${newCategory}`;
     selectedProduct = selectedProduct.replace(/ /g, '-');
     handleDropdown();
     navigate(url + '/' + selectedProduct);
   }
 
   const handleSelectCategory = (selectedCategory: string) => {
-    let url = `/ai-ads/${orientation}/${brandName}`;
+    let url = `/ai-videos/${orientation}/${brandName}`;
     selectedCategory = selectedCategory.replace(/ /g, '-');
     handleDropdown();
     navigate(url + '/' + selectedCategory);

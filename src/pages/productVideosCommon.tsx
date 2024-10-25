@@ -58,12 +58,12 @@ const ProductsVideosCommon = ({ brandProductsList, handleProductModal, handleSel
   }, [handleScroll]);
 
   const handleClearCategory = () => {
-    const url = `/ai-ads/${orientation}/${brandName}`;
+    const url = `/ai-videos/${orientation}/${brandName}`;
     navigate(url);
   }
 
   const handleClearProduct = () => {
-    const url = `/ai-ads/${orientation}/${brandName}/${category}`;
+    const url = `/ai-videos/${orientation}/${brandName}/${category}`;
     navigate(url);
   }
 
@@ -88,7 +88,7 @@ const ProductsVideosCommon = ({ brandProductsList, handleProductModal, handleSel
       <div className="flex h-30vh w-4/5">
         <div className="flex flex-1 items-center">
           <p className="text-3xl font-light pr-2">
-            {brandName ? formatText(brandName?.replace('-', ' ')) : "Creative AI Ads"}      
+            {brandName ? formatText(brandName?.replace('-', ' ')) : "Creative AI Videos for Brands"}      
           </p>
           {
             brandName && (

@@ -11,7 +11,7 @@ const SearchHeader = () => {
   }
 
   const handleSubmitSearch = (value: string) => {
-    let url = '/ai-ads';
+    let url = '/ai-videos';
     if (orientation) {
       url += (`/${orientation}`);
     } else {
@@ -31,7 +31,7 @@ const SearchHeader = () => {
     <div className="flex flex-col w-screen h-30vh bg-logo-color rounded-b-xl">
       <div className="flex flex-1 flex-col justify-center items-center">
         <p className="text-3xl font-bold text-white">
-          The most creative AI video Ads for your products
+          The most creative AI Videos for your Products
         </p>
         <p className="text-3xl font-bold text-white">
           made by AI Creators
