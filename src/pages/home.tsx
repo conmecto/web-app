@@ -6,11 +6,8 @@ import BrandHome from './brandHome';
 
 const Home: React.FC = () => {
   const { isAuthenticated, user } = useAuth();
-  // if (!isAuthenticated) {
+  // if (!isAuthenticated || user.type === "creator") {
   //   return (<BaseHome />);
-  // }
-  // if (user.type === "creator") {
-  //   return (<CreatorHome />);
   // }
   return (<BrandHome />);
 }

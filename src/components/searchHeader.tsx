@@ -1,15 +1,29 @@
 import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
-const SearchHeader = ({ onSubmitSearch }: any) => {
+const SearchHeader = () => {
+  const { orientation } = useParams();
+  const navigate = useNavigate();
   const [inputValue, setInputValue] = useState('');
-
+  
   const handleInputChange = (event: any) => {
     setInputValue(event.target.value);
   }
 
+  const handleSubmitSearch = (value: string) => {
+    let url = '/ai-ads';
+    if (orientation) {
+      url += (`/${orientation}`);
+    } else {
+      url += ('/horizontal');
+    }
+    value = value.replace(/ /g, '-');
+    navigate(url + '/' + value);
+  }
+
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    onSubmitSearch(inputValue);
+    handleSubmitSearch(inputValue);
     setInputValue('');
   }
 

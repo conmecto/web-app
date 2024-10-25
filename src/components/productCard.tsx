@@ -1,7 +1,10 @@
 import { useState, useRef } from "react";
+import { useParams } from 'react-router-dom';
 import { formatText } from "../utils/helpers";
 
-const ProductCard = ({ index, product, vertical, handleProductModal }: any) => {
+const ProductCard = ({ index, product, handleProductModal }: any) => {
+  const { orientation, brandName, category, productName } = useParams();
+  const isVertical = orientation === 'vertical';
   const [isHovered, setIsHovered] = useState(false);
   const videoRef = useRef<any>(null);
 
@@ -31,15 +34,15 @@ const ProductCard = ({ index, product, vertical, handleProductModal }: any) => {
       }
     }
   };
-console.log('product.thumbnailKey', product.thumbnailKey)
+
   const handleClick = () => {
     handleProductModal(product);
   };
 
   return (
-    <div key={index} className={`flex w-1/3 p-2 justify-center ${vertical ? "h-70vh" : "h-40vh"}`}>
+    <div key={index} className={`flex w-1/3 p-2 justify-center ${isVertical ? "h-70vh" : "h-40vh"}`}>
       <div
-        className={`relative overflow-hidden rounded-lg shadow-lg cursor-pointer ${vertical ? "w-90per h-full" : "w-full h-4/5"}`}
+        className={`relative overflow-hidden rounded-lg shadow-lg cursor-pointer ${isVertical ? "w-90per h-full" : "w-full h-4/5"}`}
         onClick={handleClick}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
