@@ -8,7 +8,7 @@ import { formatText } from '../utils/helpers';
 
 const perPage = 10;
 
-const ProductsVideosCommon = ({ brandProductsList, handleProductModal, handleSelectDevice, handleClearSearch, handleProductListModal }: any) => {
+const ProductsVideosCommon = ({ brandProductsList, handleProductModal, handleSelectDevice, handleClearSearch }: any) => {
   const { orientation, brandName, category, productName } = useParams();
   const isVertical = orientation === 'vertical';
   const [ads, setAds] = useState<any[]>([]);
@@ -22,7 +22,7 @@ const ProductsVideosCommon = ({ brandProductsList, handleProductModal, handleSel
     const signal = controller.signal;
     const callGetProducts = async () => {
       try {
-        const data = await getProducts(page, perPage, (orientation || 'horizontal'), signal, brandName, category);
+        const data = await getProducts(page, perPage, (orientation || 'horizontal'), signal, brandName, category, productName);
         setAds((prevData) => [...prevData, ...data.ads]);
         setHasMore(data.hasMore);
       } catch(error) {
@@ -56,13 +56,19 @@ const ProductsVideosCommon = ({ brandProductsList, handleProductModal, handleSel
     return () => window.removeEventListener('scroll', handleScroll);
   }, [handleScroll]);
 
-  const handleDropdown = (value: string) => {
-    if (!showDropdown) {
-      setShowDropdown(value);
-    } else if (value !== showDropdown) {
-      setShowDropdown(value);
-    } else {
+  const handleCategoryDropdown = () => {
+    if (showDropdown === 'category') {
       setShowDropdown('');
+    } else {
+      setShowDropdown('category');
+    }
+  }
+
+  const handleProductDropdown = () => {
+    if (showDropdown === 'product') {
+      setShowDropdown('');
+    } else {
+      setShowDropdown('product');
     }
   }
 
@@ -99,42 +105,58 @@ const ProductsVideosCommon = ({ brandProductsList, handleProductModal, handleSel
           brandName && (
             <div className="flex">
               <div className="relative flex flex-col items-center justify-center">
-                <button type="button" onClick={() => handleDropdown('category')} 
-                  className={`inline-flex py-2.5 px-5 me-2 text-sm font-medium text-gray-900 focus:outline-none rounded-lg border border-gray-200 hover:text-logo-color focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 
-                    ${showDropdown === 'category' ? "bg-indigo-300" : "bg-white"}`}
-                  >
-                  Categories
-                  {
-                    (showDropdown === 'category') ? (
+                {
+                  category ? (
+                    <button type="button" onClick={() => console.log('clear category')} 
+                      className={`inline-flex py-2.5 px-5 me-2 text-sm font-medium text-gray-900 focus:outline-none rounded-lg border border-gray-200 hover:text-logo-color focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 bg-indigo-300`}>
+                      {formatText(category?.replace('-', ' '))}
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 ml-2">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
-                      </svg>
-                    ) : (
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                      </svg> 
+                    </button>
+                  ) : (
+                    <button type="button" onClick={handleCategoryDropdown} 
+                      className={`inline-flex py-2.5 px-5 me-2 text-sm font-medium text-gray-900 focus:outline-none rounded-lg border border-gray-200 hover:text-logo-color focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 
+                        ${showDropdown === 'category' ? "bg-indigo-300" : "bg-white"}`}
+                      >
+                      Categories
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 ml-2">
                         <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                       </svg>
-                    ) 
-                  }
-                </button>
+                    </button>
+                  )
+                }
                 {
                   (showDropdown === 'category')  &&  (
-                    <SelectProductDropDown showDropdown={showDropdown} brandProductsList={brandProductsList} handleDropdown={handleDropdown} />
+                    <SelectProductDropDown showDropdown={showDropdown} brandProductsList={brandProductsList} handleDropdown={handleCategoryDropdown} />
                   )
                 }
               </div>
               <div className="relative flex flex-col items-center justify-center">
-                <button type="button" onClick={() => handleDropdown('product')} 
-                  className={`inline-flex py-2.5 px-5 me-2 text-sm font-medium text-gray-900 focus:outline-none rounded-lg border border-gray-200 hover:text-logo-color focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 
-                    ${showDropdown === 'product' ? "bg-indigo-300" : "bg-white"}`}
-                  >
-                  Products
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 ml-2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-                  </svg>
-                </button>
+                {
+                  productName ? (
+                    <button type="button" onClick={() => console.log('clear product')} 
+                      className={`inline-flex py-2.5 px-5 me-2 text-sm font-medium text-gray-900 focus:outline-none rounded-lg border border-gray-200 hover:text-logo-color focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 bg-indigo-300`}>
+                      {formatText(productName?.replace('-', ' '))}
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 ml-2">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                      </svg> 
+                    </button>
+                  ) : (
+                    <button type="button" onClick={handleProductDropdown} 
+                      className={`inline-flex py-2.5 px-5 me-2 text-sm font-medium text-gray-900 focus:outline-none rounded-lg border border-gray-200 hover:text-logo-color focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 
+                        ${showDropdown === 'product' ? "bg-indigo-300" : "bg-white"}`}
+                      >
+                      Products
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 ml-2">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                      </svg>
+                    </button>
+                  )
+                }
                 {
                   (showDropdown === 'product')  &&  (
-                    <SelectProductDropDown showDropdown={showDropdown} brandProductsList={brandProductsList} handleDropdown={handleDropdown} />
+                    <SelectProductDropDown showDropdown={showDropdown} brandProductsList={brandProductsList} handleDropdown={handleProductDropdown} />
                   )
                 }
               </div>

@@ -14,6 +14,32 @@ const SelectProductDropDown = ({ showDropdown, brandProductsList, handleDropdown
     }
   };
 
+  const handleSelectProduct = (selectedProduct: string, index: number) => {
+    let newCategory = category;
+    if (!newCategory) {
+      newCategory = brandProductsList[index]?.category?.replace(/ /g, '-');
+    }
+    let url = `/ai-ads/${orientation}/${brandName}/${newCategory}`;
+    selectedProduct = selectedProduct.replace(/ /g, '-');
+    handleDropdown();
+    navigate(url + '/' + selectedProduct);
+  }
+
+  const handleSelectCategory = (selectedCategory: string) => {
+    let url = `/ai-ads/${orientation}/${brandName}`;
+    selectedCategory = selectedCategory.replace(/ /g, '-');
+    handleDropdown();
+    navigate(url + '/' + selectedCategory);
+  }
+
+  const handleSelectDropdown = (item: string, index: number) => {
+    if (showDropdown === 'product') {
+      handleSelectProduct(item, index);
+    } else if (showDropdown === 'category') {
+      handleSelectCategory(item);
+    }
+  }
+
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
@@ -26,7 +52,7 @@ const SelectProductDropDown = ({ showDropdown, brandProductsList, handleDropdown
       <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
         {
           items.map((item: any, index: number) => (
-            <li role="button" onClick={() => console.log('item', item)}>
+            <li key={index?.toString()} role="button" onClick={() => handleSelectDropdown(item, index)}>
               <p className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
               {formatText(item)}
               </p>
