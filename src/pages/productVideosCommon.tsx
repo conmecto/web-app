@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import getProducts from '../services/getProducts';
 import Loader from '../components/loader';
 import ProductCard from '../components/productCard';
@@ -10,6 +10,7 @@ const perPage = 10;
 
 const ProductsVideosCommon = ({ brandProductsList, handleProductModal, handleSelectDevice, handleClearSearch }: any) => {
   const { orientation, brandName, category, productName } = useParams();
+  const navigate = useNavigate();
   const isVertical = orientation === 'vertical';
   const [ads, setAds] = useState<any[]>([]);
   const [page, setPage] = useState(1);
@@ -55,6 +56,16 @@ const ProductsVideosCommon = ({ brandProductsList, handleProductModal, handleSel
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [handleScroll]);
+
+  const handleClearCategory = () => {
+    const url = `/ai-ads/${orientation}/${brandName}`;
+    navigate(url);
+  }
+
+  const handleClearProduct = () => {
+    const url = `/ai-ads/${orientation}/${brandName}/${category}`;
+    navigate(url);
+  }
 
   const handleCategoryDropdown = () => {
     if (showDropdown === 'category') {
@@ -107,7 +118,7 @@ const ProductsVideosCommon = ({ brandProductsList, handleProductModal, handleSel
               <div className="relative flex flex-col items-center justify-center">
                 {
                   category ? (
-                    <button type="button" onClick={() => console.log('clear category')} 
+                    <button type="button" onClick={handleClearCategory} 
                       className={`inline-flex py-2.5 px-5 me-2 text-sm font-medium text-gray-900 focus:outline-none rounded-lg border border-gray-200 hover:text-logo-color focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 bg-indigo-300`}>
                       {formatText(category?.replace('-', ' '))}
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 ml-2">
@@ -135,7 +146,7 @@ const ProductsVideosCommon = ({ brandProductsList, handleProductModal, handleSel
               <div className="relative flex flex-col items-center justify-center">
                 {
                   productName ? (
-                    <button type="button" onClick={() => console.log('clear product')} 
+                    <button type="button" onClick={handleClearProduct} 
                       className={`inline-flex py-2.5 px-5 me-2 text-sm font-medium text-gray-900 focus:outline-none rounded-lg border border-gray-200 hover:text-logo-color focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 bg-indigo-300`}>
                       {formatText(productName?.replace('-', ' '))}
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 ml-2">

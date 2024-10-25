@@ -33,7 +33,7 @@ const BrandHome: React.FC = () => {
       url += (`/${category}`)
     }
     if (productName) {
-      url += (`/${brandName}`)
+      url += (`/${productName}`)
     }
     navigate(url);
   }

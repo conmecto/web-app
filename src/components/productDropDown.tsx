@@ -6,7 +6,10 @@ const SelectProductDropDown = ({ showDropdown, brandProductsList, handleDropdown
   const { orientation, brandName, category } = useParams();
   const navigate = useNavigate();
   const dropdownRef = useRef<any>(null);
-  const items = brandProductsList.map((item: any) => item[showDropdown === 'product' ? 'product_name' : 'category']);
+  const items = (category ? 
+    brandProductsList.filter((item: any) => item.category === category.replace('-', ' ')) : 
+    brandProductsList
+  ).map((item: any) => item[showDropdown === 'product' ? 'product_name' : 'category']);
   
   const handleClickOutside = (event: any) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
