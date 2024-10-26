@@ -17,9 +17,9 @@ const App: React.FC = () => {
           <Route path="/ai-videos/:orientation/:brandName/:category" element={<Home />} />
           <Route path="/ai-videos/:orientation/:brandName/:category/:productName" element={<Home />} />
           <Route element={<ProtectedRoute />}>
-            <Route path="/brands/my/profile" element={<Dashboard />} />
-            <Route path="/brands/saved" element={<Dashboard />} />
-            <Route path="/brands/checkout" element={<Dashboard />} />
+            <Route path="/brand/profile" element={<Dashboard />} />
+            <Route path="/brand/bookmarks" element={<Dashboard />} />
+            <Route path="/brand/checkout" element={<Dashboard />} />
           </Route>
           {/* <Route path="/creator/login" element={<Login creator={true} />} /> */}
           <Route path="/creator/join" element={<CreatorSignup />} />

@@ -8,6 +8,7 @@ type loginFormData = {
 const loginUser = async (formData: loginFormData, creator = false, signal: any) => {
   const response = await fetch(creator ? CREATOR_LOGIN_URL : BRAND_LOGIN_URL, {
     method: 'POST',
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
     },

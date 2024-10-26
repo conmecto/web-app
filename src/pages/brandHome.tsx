@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import getBrandProductsList from '../services/getBrandProductsList';
+import getBookmarks from '../services/getBookmarks';
 import ProductsVideosCommon from './productVideosCommon'; 
 import BrandHeader from '../components/brandHeader';
 import SearchHeader from '../components/searchHeader';
 import ProductModal from '../components/productModal';
+import { useAuth } from '../utils/authContext';
+
 
 const BrandHome: React.FC = () => {
+  const authData = useAuth();
+  const { user, isAuthenticated } = authData;
   const { orientation, brandName, category, productName } = useParams();
   const navigate = useNavigate();
   const [modalProduct, setModalProduct] = useState<any>(null);
   const [brandProductsList, setBrandProductsList] = useState<any[]>([]);
+  const [bookmarks, setBookmarks] = useState<any>();
   const resetChildKey = `${orientation}-${brandName}-${category}-${productName}`;
 
   const handleClearSearch = () => {
@@ -41,6 +47,25 @@ const BrandHome: React.FC = () => {
   const handleProductModal = (product: any) => {
     setModalProduct(product);
   }
+
+  useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+    const callGetBrandBookmarks = async () => {
+      try {
+        const data = await getBookmarks(user.id, signal, authData);
+        const set = new Set((data?.bookmarks || []));
+        setBookmarks(set);
+      } catch(error) {
+      }
+    }
+    if (isAuthenticated && user?.id && user?.type === 'brand') {
+      callGetBrandBookmarks();
+    }
+    return () => {
+      controller.abort();
+    }
+  }, []);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -79,7 +104,9 @@ const BrandHome: React.FC = () => {
       {
         modalProduct && 
         (
-          <ProductModal product={modalProduct} handleProductModal={handleProductModal} />
+          <ProductModal product={modalProduct} handleProductModal={handleProductModal} 
+            bookmarks={bookmarks} setBookmarks={setBookmarks} 
+            />
         )
       }
     </div>

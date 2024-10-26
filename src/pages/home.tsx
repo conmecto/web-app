@@ -3,11 +3,12 @@ import { useAuth } from '../utils/authContext';
 import BaseHome from './baseHome';
 import CreatorHome from './creatorHome';
 import BrandHome from './brandHome';
+import Login from './login';
 
 const Home: React.FC = () => {
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated, user, accessToken } = useAuth();
   // if (!isAuthenticated || user.type === "creator") {
-  //   return (<BaseHome />);
+  //   return (<Login creator={false} />);
   // }
   return (<BrandHome />);
 }

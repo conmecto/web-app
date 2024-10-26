@@ -50,7 +50,7 @@ const Login = ({ creator }: props) => {
         id: result.userId,
         type: result.type
       });
-      setAccessToken(result.access_token);
+      setAccessToken(result.accessToken);
       navigate('/');
     } catch (err: any) {
       if (err.message === '400') {

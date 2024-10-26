@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Welcome from '../pages/welcome';
-import { AUTH_URL } from '../utils/environments';
+import { BRAND_AUTH_URL } from '../utils/environments';
 
 type User = {
   id: number
@@ -14,29 +14,26 @@ export const AuthProvider = ({ children }: any) => {
   const [accessToken, setAccessToken] = useState<string | null>(null); 
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [callSilent, setCallSilent] = useState(true);
   const navigate = useNavigate();
 
-  const silentAuth = async () => {
-    try {
-      const response = await fetch(AUTH_URL, {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8',
-        },
-        credentials: 'include'
-      });
-      if (response?.ok) {
-        const authResponse = await response.json();
-        if (authResponse?.accessToken && authResponse?.userId && authResponse?.type) {
-          return {
-            userId: authResponse.userId,
-            type: authResponse.type,
-            accessToken: authResponse.access_token
-          }
-        }
-      }
-    } catch (error) {
-      console.error('Error during silent authentication:', error);
+  const silentAuth = async (signal: any) => {
+    const response = await fetch(BRAND_AUTH_URL, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      signal
+    });
+    if (!response?.ok) {
+      throw new Error(`${response.status}`);
+    }
+    const authResponse = await response.json();
+    return {
+      userId: authResponse?.userId,
+      type: authResponse?.type,
+      accessToken: authResponse?.accessToken
     }
   };
 
@@ -53,23 +50,29 @@ export const AuthProvider = ({ children }: any) => {
   // };
   
   useEffect(() => {
-    let check = true;
+    if (!callSilent) {
+      return;
+    }
+    const controller = new AbortController();
+    const signal = controller.signal;
     const checkAuthStatus = async () => {
-      const result = await silentAuth();
-      if (check) {
-        if (result) {
-          setAccessToken(result.accessToken);
-          setUser({
-            id: result.userId,
-            type: result.type
-          });
-        }
+      try {
+        const result = await silentAuth(signal);
+        setAccessToken(result.accessToken);
+        setUser({
+          id: result.userId,
+          type: result.type
+        });
+      } catch(error) {
+        console.log('Auth silent error', error);
+      } finally {
         setLoading(false);
       }
     };
     checkAuthStatus();
+    setCallSilent(false);
     return () => {
-      check = false; 
+      controller.abort();
     }
   }, []);
 
