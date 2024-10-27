@@ -1,5 +1,4 @@
-import { createContext, useContext, useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { createContext, useContext, useState, useEffect, useRef } from 'react';
 import Welcome from '../pages/welcome';
 import { BRAND_AUTH_URL } from '../utils/environments';
 
@@ -14,9 +13,8 @@ export const AuthProvider = ({ children }: any) => {
   const [accessToken, setAccessToken] = useState<string | null>(null); 
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const [callSilent, setCallSilent] = useState(true);
-  const navigate = useNavigate();
-
+  const hasInitialized = useRef(false);
+  
   const silentAuth = async (signal: any) => {
     const response = await fetch(BRAND_AUTH_URL, {
       method: 'POST',
@@ -37,20 +35,8 @@ export const AuthProvider = ({ children }: any) => {
     }
   };
 
-  // Call this to log in and set the access token
-  // const login = (token: string) => {
-  //   setAccessToken(token);
-  //   navigate('/dashboard');
-  // };
-
-  // Call this to log out and clear the access token
-  // const logout = () => {
-  //   setAccessToken(null);
-  //   navigate('/login');
-  // };
-  
   useEffect(() => {
-    if (!callSilent) {
+    if (hasInitialized.current) {
       return;
     }
     const controller = new AbortController();
@@ -67,10 +53,10 @@ export const AuthProvider = ({ children }: any) => {
         console.log('Auth silent error', error);
       } finally {
         setLoading(false);
+        hasInitialized.current = true;
       }
     };
     checkAuthStatus();
-    setCallSilent(false);
     return () => {
       controller.abort();
     }
@@ -79,11 +65,10 @@ export const AuthProvider = ({ children }: any) => {
   const value = {
     accessToken,
     user,
-    // login,
-    // logout,
     silentAuth,
     setAccessToken,
     setUser,
+    loading,
     isAuthenticated: !!accessToken,
   };
 
