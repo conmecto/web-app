@@ -65,7 +65,7 @@ const BrandHome: React.FC = () => {
     return () => {
       controller.abort();
     }
-  }, []);
+  }, [isAuthenticated]);
 
   useEffect(() => {
     const controller = new AbortController();

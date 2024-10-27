@@ -1,10 +1,8 @@
 import { useState, useRef } from "react";
-import { useParams } from 'react-router-dom';
 import { formatText } from "../utils/helpers";
 
-const ProductCard = ({ index, product, handleProductModal }: any) => {
-  const { orientation, brandName, category, productName } = useParams();
-  const isVertical = orientation === 'vertical';
+const ProductCard = ({ index, product, handleProductModal, isSaved, handleRemoveBookmark }: any) => {
+  const isVertical = product.orientation === 'vertical';
   const [isHovered, setIsHovered] = useState(false);
   const videoRef = useRef<any>(null);
 
@@ -66,7 +64,20 @@ const ProductCard = ({ index, product, handleProductModal }: any) => {
           loop
           playsInline
         />
-
+        {
+          isSaved && (
+            <div
+              className={`absolute flex top-0 right-2 py-2 transition-opacity duration-300 ${
+                isHovered ? "opacity-100" : "opacity-0"
+              }`}>
+              <button type="button" onClick={() => handleRemoveBookmark(product.id, product.orientation)} className="bg-white rounded-full p-1">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="size-4">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+          )
+        }
         <div
           className={`absolute flex flex-row bottom-0 left-0 w-full py-2 transition-opacity duration-300 ${
             isHovered ? "opacity-100" : "opacity-0"
