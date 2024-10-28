@@ -19,7 +19,7 @@ const AppRoutes: React.FC = () => {
       <Route path="/ai-videos/:orientation/:brandName/:category" element={<Home />} />
       <Route path="/ai-videos/:orientation/:brandName/:category/:productName" element={<Home />} />
       <Route element={<ProtectedRoute />}>
-        <Route path="/brand/profile" element={<Dashboard />} />
+        <Route path="/brand/orders" element={<Dashboard />} />
         <Route path="/brand/saved" element={<BrandSaved />} />
         <Route path="/brand/checkout" element={<BrandCheckout />} />
       </Route>
