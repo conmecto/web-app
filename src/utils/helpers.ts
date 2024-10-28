@@ -7,6 +7,20 @@ const formatText = (text: string | undefined) => {
   }).join(' ');
 }
 
+const formatAmount = (amount: number, currency: string) => {
+  if (currency === 'indian_rupee') {  
+    const indianFormatter = new Intl.NumberFormat('en-IN', {
+      maximumFractionDigits: 2,
+    });
+    return indianFormatter.format(amount);
+  }
+  const internationalFormatter = new Intl.NumberFormat('en-US', {
+    maximumFractionDigits: 2,
+  });
+  return internationalFormatter.format(amount);
+}
+
 export {
-  formatText
+  formatText,
+  formatAmount
 }

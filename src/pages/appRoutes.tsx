@@ -6,6 +6,7 @@ import Home from './home';
 import Signup from './signup';
 import Login from './login';
 import BrandSaved from './brandSaved';
+import BrandCheckout from './brandCheckout';
 
 const AppRoutes: React.FC = () => {  
   return (
@@ -20,13 +21,8 @@ const AppRoutes: React.FC = () => {
       <Route element={<ProtectedRoute />}>
         <Route path="/brand/profile" element={<Dashboard />} />
         <Route path="/brand/saved" element={<BrandSaved />} />
-        <Route path="/brand/checkout" element={<Dashboard />} />
+        <Route path="/brand/checkout" element={<BrandCheckout />} />
       </Route>
-      {/* <Route path="/creator/login" element={<Login creator={true} />} /> */}
-      {/* <Route path="/creator/join" element={<CreatorSignup />} /> */}
-      {/* <Route element={<ProtectedRoute type="creator"/>}>
-        <Route path="/creator/:creatorId/dashboard" element={<Dashboard />} />
-      </Route> */}
     </Routes>
   )
 }
