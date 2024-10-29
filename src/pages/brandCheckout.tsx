@@ -97,7 +97,7 @@ const BrandCheckout = () => {
               <div className="space-y-6">
                 {
                   checkoutAdList.map((ad, index) => (
-                    <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-6">
+                    <div key={index} className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-6">
                       <div className="flex flex-row">
                         <div className="flex flex-1 justify-center items-center">
                           <img className="h-full w-2/3 dark:hidden rounded-lg" src={ad.thumbnailKey} alt="thumbnail" />
@@ -126,9 +126,6 @@ const BrandCheckout = () => {
                           </div>                         
                           <div className="flex flex-1 flex-row justify-between items-end">
                             <button type="button" onClick={() => setRemoveAd(ad.id)} className="inline-flex items-center text-sm font-medium text-red-600 hover:underline dark:text-red-500">
-                              <svg className="me-1.5 h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6" />
-                              </svg>
                               Remove
                             </button>
                             <p className="text-2xl font-bold text-gray-900 dark:text-white">

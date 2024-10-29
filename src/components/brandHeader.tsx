@@ -1,7 +1,9 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../utils/authContext';
 
 const BrandHeader: React.FC = () => {
+  const { user } = useAuth();
   const dropdownRef = useRef<any>(null);
   const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate();
@@ -11,7 +13,12 @@ const BrandHeader: React.FC = () => {
   }
 
   const handleHome = () => {
-    navigate('/');
+    if (user?.brandName) {
+      let url = '/ai-videos/horizontal/' + user?.brandName;
+      navigate(url);
+    } else {
+      navigate('/');
+    }
   }
 
   const handleCheckout = () => {
