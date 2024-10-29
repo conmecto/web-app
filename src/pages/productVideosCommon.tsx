@@ -5,6 +5,7 @@ import getProductsWithAuth from '../services/getProductsWithAuth';
 import Loader from '../components/loader';
 import ProductCard from '../components/productCard';
 import SelectProductDropDown from '../components/productDropDown';
+import NoAdFound from '../components/noAdFound';
 import { formatText } from '../utils/helpers';
 import { useAuth } from '../utils/authContext';
 
@@ -198,6 +199,11 @@ const ProductsVideosCommon = ({ brandProductsList, handleProductModal, handleSel
           loading && (<Loader />)
         }
       </div>
+      {
+        brandName && (!ads?.length) && (
+          <NoAdFound />
+        )
+      }
     </div>
   );
 }
