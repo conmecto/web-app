@@ -7,6 +7,7 @@ import Login from './login';
 import BrandSaved from './brandSaved';
 import BrandCheckout from './brandCheckout';
 import BrandOrders from './brandOrders';
+import PageNotFound from './pageNotFound';
 
 const AppRoutes: React.FC = () => {  
   return (
@@ -24,6 +25,7 @@ const AppRoutes: React.FC = () => {
         <Route path="/brand/saved" element={<BrandSaved />} />
         <Route path="/brand/checkout" element={<BrandCheckout />} />
       </Route>
+      <Route path="*" element={<PageNotFound />} />
     </Routes>
   )
 }
