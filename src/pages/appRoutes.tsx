@@ -14,6 +14,7 @@ const AppRoutes: React.FC = () => {
       <Route path="/" element={<Home />} />
       <Route path="/join" element={<Signup />} />
       <Route path="/login" element={<Login creator={false} />} />
+      <Route path="/creator/join" element={<Signup />} />
       <Route path="/ai-videos/:orientation" element={<Home />} />
       <Route path="/ai-videos/:orientation/:brandName" element={<Home />} />
       <Route path="/ai-videos/:orientation/:brandName/:category" element={<Home />} />
