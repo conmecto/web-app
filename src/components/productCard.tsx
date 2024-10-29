@@ -12,9 +12,7 @@ const ProductCard = ({ index, product, handleProductModal, isSaved, handleRemove
       try {
         setIsHovered(true);
         await video.play();
-        console.log("Video playing...");
       } catch (error) {
-        console.log("Video play was aborted:", error);
       }
     }
   };
@@ -26,9 +24,7 @@ const ProductCard = ({ index, product, handleProductModal, isSaved, handleRemove
         setIsHovered(false);
         await video.pause();
         video.currentTime = 0;
-        console.log("Video paused and reset...");
       } catch (error) {
-        console.log("Video pause was aborted:", error);
       }
     }
   };

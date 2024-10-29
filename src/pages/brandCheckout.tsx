@@ -110,10 +110,20 @@ const BrandCheckout = () => {
                             </p>
                           </div>
                           <div className="flex flex-1 flex-col justify-start">
-                            <p className="text-xl font-medium text-gray-900 dark:text-white">
-                              {formatText(ad.productName)} | By {formatText(ad.firstname) + " " + formatText(ad.lastname)}
+                            <p className="text-lg font-medium text-gray-900 dark:text-white">
+                              {formatText(ad.productName)} | {ad.summary ? (formatText(ad.summary) + " | ") : ""} By {formatText(ad.firstname) + " " + formatText(ad.lastname)}
                             </p>
                           </div>
+                          <div className="flex flex-1 flex-col justify-start">
+                            <p className="text-lg font-medium text-gray-900 dark:text-white">
+                              Original Dimensions: {ad.width + " ✗ " + ad.height}
+                            </p>
+                          </div> 
+                          <div className="flex flex-1 flex-col justify-center bg-logo-color rounded-lg p-2">
+                            <p className="text-xs font-semibold text-white dark:text-white">
+                              Perpetual content license for both commercial and non-commercial use
+                            </p>
+                          </div>                         
                           <div className="flex flex-1 flex-row justify-between items-end">
                             <button type="button" onClick={() => setRemoveAd(ad.id)} className="inline-flex items-center text-sm font-medium text-red-600 hover:underline dark:text-red-500">
                               <svg className="me-1.5 h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">

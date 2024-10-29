@@ -4,7 +4,8 @@ import { BRAND_AUTH_URL } from '../utils/environments';
 
 type User = {
   id: number
-  type: string
+  type: string,
+  brandName?: string
 }
 
 const AuthContext = createContext<any>(null);
@@ -28,11 +29,7 @@ export const AuthProvider = ({ children }: any) => {
       throw new Error(`${response.status}`);
     }
     const authResponse = await response.json();
-    return {
-      userId: authResponse?.userId,
-      type: authResponse?.type,
-      accessToken: authResponse?.accessToken
-    }
+    return authResponse;
   };
 
   useEffect(() => {
@@ -47,7 +44,8 @@ export const AuthProvider = ({ children }: any) => {
         setAccessToken(result.accessToken);
         setUser({
           id: result.userId,
-          type: result.type
+          type: result.type,
+          brandName: result.brandName
         });
       } catch(error) {
         console.log('Auth silent error', error);

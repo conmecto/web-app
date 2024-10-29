@@ -9,10 +9,16 @@ const currencySymbols: any = {
   'united_states_dollar': '$'
 }
 
+const countryList: any = {
+  'in': 'India',
+  'us': 'USA'
+}
+
 export {
   emailRegex,
   passwordRegex,
   locationLocalStorageKey,
   locationLocalStorageExpireTimeMin,
-  currencySymbols
+  currencySymbols,
+  countryList
 }

@@ -1,14 +1,17 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import getProducts from '../services/getProducts';
+import getProductsWithAuth from '../services/getProductsWithAuth';
 import Loader from '../components/loader';
 import ProductCard from '../components/productCard';
 import SelectProductDropDown from '../components/productDropDown';
 import { formatText } from '../utils/helpers';
+import { useAuth } from '../utils/authContext';
 
 const perPage = 10;
 
 const ProductsVideosCommon = ({ brandProductsList, handleProductModal, handleSelectDevice, handleClearSearch }: any) => {
+  const authData = useAuth();
   const { orientation, brandName, category, productName } = useParams();
   const navigate = useNavigate();
   const isVertical = orientation === 'vertical';
@@ -23,7 +26,15 @@ const ProductsVideosCommon = ({ brandProductsList, handleProductModal, handleSel
     const signal = controller.signal;
     const callGetProducts = async () => {
       try {
-        const data = await getProducts(page, perPage, (orientation || 'horizontal'), signal, brandName, category, productName);
+        let data: any = null;
+        if (authData?.isAuthenticated && authData?.user?.id && authData?.user?.type === 'brand') {
+          data = await getProductsWithAuth(
+            authData?.user?.id, page, perPage, (orientation || 'horizontal'), signal, 
+            authData, brandName, category, productName
+          );
+        } else {
+          data = await getProducts(page, perPage, (orientation || 'horizontal'), signal, brandName, category, productName);
+        }
         setAds((prevData) => [...prevData, ...data.ads]);
         setHasMore(data.hasMore);
       } catch(error) {

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import ProtectedRoute from '../utils/protectedRoute';
-import Dashboard from './dashboard';
+import BrandProtectedRoute from '../utils/brandProtectedRoute';
 import Home from './home';
 import Signup from './signup';
 import Login from './login';
 import BrandSaved from './brandSaved';
 import BrandCheckout from './brandCheckout';
+import BrandOrders from './brandOrders';
 
 const AppRoutes: React.FC = () => {  
   return (
@@ -18,8 +18,8 @@ const AppRoutes: React.FC = () => {
       <Route path="/ai-videos/:orientation/:brandName" element={<Home />} />
       <Route path="/ai-videos/:orientation/:brandName/:category" element={<Home />} />
       <Route path="/ai-videos/:orientation/:brandName/:category/:productName" element={<Home />} />
-      <Route element={<ProtectedRoute />}>
-        <Route path="/brand/orders" element={<Dashboard />} />
+      <Route element={<BrandProtectedRoute />}>
+        <Route path="/brand/orders" element={<BrandOrders />} />
         <Route path="/brand/saved" element={<BrandSaved />} />
         <Route path="/brand/checkout" element={<BrandCheckout />} />
       </Route>

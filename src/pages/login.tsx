@@ -48,10 +48,15 @@ const Login = ({ creator }: props) => {
       const result = await loginUser(formData, creator, signal);
       setUser({
         id: result.userId,
-        type: result.type
+        type: result.type,
+        brandName: result.brandName
       });
       setAccessToken(result.accessToken);
-      navigate('/');
+      if (!creator && result.brandName) {
+        navigate('/ai-videos/horizontal/' + result.brandName);
+      } else {
+        navigate('/');
+      }
     } catch (err: any) {
       if (err.message === '400') {
         setError('Incorrect Credentials!');
